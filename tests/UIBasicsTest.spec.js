@@ -18,7 +18,19 @@ test.only('Second Playwright Test',  async ({page}) => {
     console.log(title);
     // await expect(page).toHaveTitle('LoginPage Practise | Rahul Shetty Academy'); 
 
-    await page.locator('#username').fill("rahulshettyacademy");
-    await page.locator("[type='password']").fill("learning");
-    await page.locator(#signInBtn).click();
+    await page.locator('#username').fill("rahulshettydfgacademy");  
+    //locator is a method to find the element,
+    //  it returns a locator object, we can use it to perform actions on the element
+    await page.locator("[type='password']").fill("learning"); // we can use css selector to find the element
+    //fill is a method to enter the text in the input field
+    await page.locator("#signInBtn").click();
+    const errorMessage = await page.locator("[style*='block']").textContent();
+    //textContent is a method to get the text of the element, it returns a string
+    // [style*='block'] is a css selector to find the element which has style attribute with value containing block
+    console.log(errorMessage);
+
+
+    await expect(page.locator("[style*='block']")).toContainText("Incorrect"); // to check if the error message contains the text "Incorrect"
+
+    
 });
