@@ -53,20 +53,3 @@ test('Second Playwright Test',  async ({page}) => {
 
 
 
-test.only('Login',async({page})=>{
-    const username = page.locator("#userEmail");
-    const password = page.locator("#userPassword");
-
-    const btn = page.locator("#login");
-
-    await page.goto("https://rahulshettyacademy.com/client/#/auth/login");
-
-    const title = await page.title();
-    console.log(title);
-
-    await username.fill("roshik9841@gmail.com");
-    await password.fill("Roshik9841@!");
-    await btn.click();
-
-    console.log(await page.locator(".card-body b").first().textContent());
-})
