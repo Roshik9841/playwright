@@ -12,9 +12,13 @@ test('First Playwright Test',  async ({browser}) => {
 test.only('Second Playwright Test',  async ({page}) => { 
     //page is coming from the test function, we can use it directly
     //  to navigate to the url
-    await page.goto('https://www.google.com/');
+    await page.goto('https://rahulshettyacademy.com/loginpagePractise/');
 
     const title = await page.title();
     console.log(title);
-    await expect(page).toHaveTitle('Google');
+    // await expect(page).toHaveTitle('LoginPage Practise | Rahul Shetty Academy'); 
+
+    await page.locator('#username').fill("rahulshettyacademy");
+    await page.locator("[type='password']").fill("learning");
+    await page.locator(#signInBtn).click();
 });
