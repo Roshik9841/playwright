@@ -45,6 +45,16 @@ test.only('UI controls',async({page})=>{
 
             await page.locator(".radiotextsty").last().click();
             await page.locator("#okayBtn").click();
-                await page.click("#signInBtn");
+
+            await expect(page.locator(".radiotextsty").last()).toBeChecked(); // to check if the radio button is selected
+            console.log(await page.locator(".radiotextsty").last().isChecked()); 
+            // to check if the radio button is selected, it returns a boolean value
+
+            await page.locator("#terms").check(); // to check the checkbox or click
+            await expect(page.locator("#terms")).toBeChecked();
+
+            await page.locator("#terms").uncheck();
+          
+            await page.click("#signInBtn");
 
 })
