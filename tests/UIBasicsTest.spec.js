@@ -53,3 +53,64 @@ test('Second Playwright Test',  async ({page}) => {
 
 
 
+
+
+
+test('UI controls',async({page})=>{
+
+         await page.goto('https://rahulshettyacademy.com/loginpagePractise/');
+         await page.fill("#username","rahulshettyacademy");
+         await page.fill("[type='password']","Learning@830$3mK2");
+        const documentLink = page.locator("[href*='/documents-request']");
+         const dropdown = page.locator("select.form-control");
+         await dropdown.selectOption("consult");
+
+            // await page.pause(); 
+            // to pause the test execution and open the Playwright Inspector, 
+            // it will allow us to debug the test and see the state of the application at that point in time
+
+            await page.locator(".radiotextsty").last().click();
+            await page.locator("#okayBtn").click();
+
+            await expect(page.locator(".radiotextsty").last()).toBeChecked(); // to check if the radio button is selected
+            console.log(await page.locator(".radiotextsty").last().isChecked()); 
+            // to check if the radio button is selected, it returns a boolean value
+
+            await page.locator("#terms").check(); // to check the checkbox or click
+            await expect(page.locator("#terms")).toBeChecked();
+
+            await page.locator("#terms").uncheck();
+          
+            await expect(documentLink).toHaveAttribute("class","blinkingText"); 
+            // to check if the link has the class attribute with value blinkingText
+            await page.click("#signInBtn");
+
+})
+// console.log(await page.locator("#username").inputValue())
+
+test('Child windows hadle',async({browser})=>{
+    
+        const context = await browser.newContext();
+        const page = await context.newPage();
+        const userName = page.locator('#username');
+         await page.goto('https://rahulshettyacademy.com/loginpagePractise/');
+    
+        const documentLink = page.locator("[href*='/documents-request']");
+        const [newPage] = await Promise.all([
+            
+        context.waitForEvent('page'),
+           // to wait for the new page to open, it will wait for the new page to open before performing
+        //  any action on it, otherwise it will throw an error
+          documentLink.click()]);
+     
+         
+        const text = await  newPage.locator(".red").textContent();
+        const arr = text.split("@");
+        const domain = arr[1].split(" ")[0];
+        console.log(domain);
+        await userName.fill(domain);
+        await page.pause(); 
+        console.log(await page.locator("#username").inputValue())
+
+
+});
