@@ -1,6 +1,6 @@
 const { test, expect } = require("@playwright/test");
 
-test.only("Login", async ({ page }) => {
+test("Login", async ({ page }) => {
   const username = page.locator("#userEmail");
   const password = page.locator("#userPassword");
 
@@ -99,6 +99,7 @@ await page.locator("button[routerlink*='myorders']").click();
    }
    const orderIdDetails = await page.locator(".col-text").textContent();
    expect(orderId.includes(orderIdDetails)).toBeTruthy();
+  
  
 });
  
