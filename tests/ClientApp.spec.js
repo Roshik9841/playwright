@@ -21,6 +21,9 @@ test.only("Login", async ({ page }) => {
   await password.fill("Roshik9841@!");
   await btn.click();
 
+
+
+
   // await page.waitForLoadState("networkidle");
   // to wait for the page to load completely, it will wait for all the network requests to be finished
 
@@ -47,6 +50,11 @@ test.only("Login", async ({ page }) => {
  await page.locator("text = Checkout").click();
 
  
+
+
+
+
+
  const input = page.locator("[type='text']");
  
  await input.first().fill("4100 2100 3465 7898");
@@ -69,7 +77,28 @@ test.only("Login", async ({ page }) => {
         break;
       }
   }
-
+  await expect(page.locator(".user__name label")).toHaveText("roshik9841@gmail.com");
  await page.locator(".action__submit").click(); 
-  await page.pause();
+
+ await expect(page.locator(".hero-primary")).toHaveText(" Thankyou for the order. ");
+ const orderId = await page.locator(".em-spacer-1 .ng-star-inserted").textContent();
+ console.log(orderId);
+
+
+await page.locator("button[routerlink*='myorders']").click();
+   await page.locator("tbody").waitFor();
+   const rows = await page.locator("tbody tr");
+ 
+ 
+   for (let i = 0; i < await rows.count(); ++i) {
+      const rowOrderId = await rows.nth(i).locator("th").textContent();
+      if (orderId.includes(rowOrderId)) {
+         await rows.nth(i).locator("button").first().click();
+         break;
+      }
+   }
+   const orderIdDetails = await page.locator(".col-text").textContent();
+   expect(orderId.includes(orderIdDetails)).toBeTruthy();
+ 
 });
+ 
