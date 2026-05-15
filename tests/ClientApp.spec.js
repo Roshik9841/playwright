@@ -9,6 +9,8 @@ test.only("Login", async ({ page }) => {
   const products = page.locator(".card-body");
   const productName = "ZARA COAT 3";
 
+  const select = page.locator("select");
+
   const cart = page.locator("[routerlink*='cart']");
   await page.goto("https://rahulshettyacademy.com/client/#/auth/login");
 
@@ -19,7 +21,7 @@ test.only("Login", async ({ page }) => {
   await password.fill("Roshik9841@!");
   await btn.click();
 
-  await page.waitForLoadState("networkidle");
+  // await page.waitForLoadState("networkidle");
   // to wait for the page to load completely, it will wait for all the network requests to be finished
 
   await page.locator(".card-body b").first().waitFor();
@@ -41,4 +43,33 @@ test.only("Login", async ({ page }) => {
   // to check if the product is added to the cart, it will check if the product name is visible in the cart page, 
   // it returns a boolean value
  expect(bool).toBeTruthy();
+
+ await page.locator("text = Checkout").click();
+
+ 
+ const input = page.locator("[type='text']");
+ 
+ await input.first().fill("4100 2100 3465 7898");
+ await input.nth(1).fill("Code");
+ await input.nth(2).fill("Roshik");
+ await input.nth(3).fill("rahul shetty academy");
+//  await page.locator("[type='submit']").click();
+
+ await select.first().selectOption("10");
+ await select.last().selectOption("20");
+
+ await page.locator("[placeholder*='Country' ]").pressSequentially("India");
+  const dropdown = page.locator(".ta-results");
+  await dropdown.waitFor();
+  const optionCount = await dropdown.locator("button").count();
+  for(let i =0 ;i<optionCount;i++){
+     const text = await dropdown.locator("button").nth(i).textContent();
+      if(text===" India"){
+        await dropdown.locator("button").nth(i).click();
+        break;
+      }
+  }
+
+ await page.locator(".action__submit").click(); 
+  await page.pause();
 });
