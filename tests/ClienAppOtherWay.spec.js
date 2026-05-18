@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 
-test.only("Webst Client App login", async ({ page }) => {
+test("Webst Client App login", async ({ page }) => {
   const username = page.getByPlaceholder("email@example.com");
   const password = page.getByPlaceholder("enter your passsword");
 
