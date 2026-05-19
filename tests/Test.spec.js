@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 
-test.only("Webst Client App login", async ({ page }) => {
+test("Webst Client App login", async ({ page }) => {
   const title = Date.now();
 
   const eventName = "1779172166513";
@@ -29,9 +29,10 @@ test.only("Webst Client App login", async ({ page }) => {
   await page.getByLabel("Total Seats").fill("50");
   await page.locator("#add-event-btn").click();
   await page.locator("[href='/events']").first().click();
+
+
   await page.locator("#event-card").first().waitFor();
   console.log(await page.locator("#event-card h3").allTextContents());
-
   const eventCard =  page
     .locator("#event-card")
     .filter({ hasText: eventName });
@@ -50,10 +51,16 @@ console.log(await eventCard.locator("span").count());
   const bookingRef = await page.locator(".booking-ref").textContent();
   console.log(bookingRef);
   await page.getByText("View My Bookings").click();
+
+
+
   await expect(page).toHaveURL("https://eventhub.rahulshettyacademy.com/bookings");
   const bookingCard = await page.locator("#booking-card").filter({hasText:bookingRef});
   await expect(bookingCard).toBeVisible();
   await expect(bookingCard.locator("h3")).toHaveText(eventName);
+
+
+
    await page.locator("[href='/events']").first().click();
     await page.locator("#event-card").first().waitFor();
     const card2 = await page.locator("#event-card").filter({hasText:eventName});
@@ -64,6 +71,8 @@ console.log(await eventCard.locator("span").count());
 
   await page.pause();
 });
+
+
 
 function futureDateValue() {
   const date = new Date();
