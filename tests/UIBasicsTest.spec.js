@@ -109,7 +109,7 @@ test('Child windows hadle',async({browser})=>{
         const domain = arr[1].split(" ")[0];
         console.log(domain);
         await userName.fill(domain);
-        await page.pause(); 
+        // await page.pause(); 
         console.log(await page.locator("#username").inputValue())
 
 

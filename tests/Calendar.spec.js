@@ -1,6 +1,6 @@
 import {test,expect} from "@playwright/test";
 
-test.only("Calendar Validation",async({page})=>{
+test("Calendar Validation",async({page})=>{
     const monthNumber = "6";
     const date="15";
     const year = "2003";
@@ -23,4 +23,5 @@ test.only("Calendar Validation",async({page})=>{
         expect(value).toEqual(expectedList[i]);
         
     }
+    
 });

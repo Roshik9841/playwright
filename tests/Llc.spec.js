@@ -18,6 +18,6 @@ test("Playwright Special locators",async({page})=>{
 
     await page.locator("app-card").filter({hasText:'Nokia Edge'}).getByRole("button").click();
     
-      await page.locator("div li").first().waitFor();
+      await page.locator("div li").first().waitFor(); 
 ;
 })
