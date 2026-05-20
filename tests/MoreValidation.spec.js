@@ -1,6 +1,6 @@
 import {test,expect} from '@playwright/test';
 
-test.only("login",async({page})=>{
+test("login",async({page})=>{
 
     await page.goto("https://rahulshettyacademy.com/AutomationPractice/");
     // await page.goto("https://google.com");
