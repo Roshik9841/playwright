@@ -29,7 +29,7 @@ test.beforeAll(async () => {
 
 
 
-test.only("Api", async ({ page }) => {
+test("Api", async ({ page }) => {
   
 
   await page.addInitScript((value) => {

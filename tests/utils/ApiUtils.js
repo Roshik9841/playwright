@@ -14,7 +14,7 @@ class ApiUtils {
       { data: this.loginPayload },
     );
 
-    // expect(loginResponse.ok()).toBeTruthy();y
+    // expect(loginResponse.ok()).toBeTruthy();
     const loginJsonResponse = await loginResponse.json();
     const token = loginJsonResponse.token;
     console.log(token);
