@@ -25,7 +25,7 @@ test.beforeAll(async({browser})=>{
 
 
 
-test.only("Webst Client App login", async ({}) => {
+test("Webst Client App login", async ({}) => {
 
     const page = await webContext.newPage();
      await page.goto("https://rahulshettyacademy.com/client/");
