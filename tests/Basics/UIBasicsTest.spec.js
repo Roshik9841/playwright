@@ -88,10 +88,14 @@ test('UI controls',async({page})=>{
 })
 // console.log(await page.locator("#username").inputValue())
 
-test('Child windows hadle',async({browser})=>{
+test.only('Child windows hadle',async({browser})=>{
     
         const context = await browser.newContext();
         const page = await context.newPage();
+
+        page.route("**/*.css",route=>route.abort()); //for blocking the css files, it will make the page load faster\
+        page.route("**/*.{jpg,png,jpeg}",route=>route.abort()); // for blocking the image files, it will make the page load faster
+
         const userName = page.locator('#username');
          await page.goto('https://rahulshettyacademy.com/loginpagePractise/');
     

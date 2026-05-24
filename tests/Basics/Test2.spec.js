@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 
 const BASE_URL   = 'https://eventhub.rahulshettyacademy.com';
 
-const GMAIL_USER = { email: 'Roshik9841@gmail.com', password: 'Roshik1234!' };
+const GMAIL_USER = { email: 'Roshik9841@gmail.com', password: 'Roshik9841@!' };
 
 async function loginAndGoToBooking(page) {
   await page.goto(`${BASE_URL}/login`);
