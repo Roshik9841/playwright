@@ -27,7 +27,7 @@ test("popup ",async({page})=>{
 
 });
 
-test.only("Screenshot",async({page})=>{
+test("Screenshot",async({page})=>{
     
     await page.goto("https://rahulshettyacademy.com/AutomationPractice/");
       await expect(page.locator("#displayed-text")).toBeVisible();
@@ -35,4 +35,11 @@ test.only("Screenshot",async({page})=>{
     await page.locator("#hide-textbox").click();
     await page.screenshot({path:"screenshot.png"});  // ss of entire page
     await expect(page.locator("#displayed-text")).toBeHidden();
+})
+
+
+test.only('visual', async({page})=>{
+    await page.goto("https://www.flightaware.com/");
+
+    expect(await page.screenshot()).toMatchSnapshot('landing.png');
 })
