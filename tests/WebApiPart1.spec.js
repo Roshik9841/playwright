@@ -20,7 +20,7 @@ let token;
 let orderId;
 test.beforeAll(async () => {
 
-  const apiContext = await request.newContext();
+  const apiContext = await request.newContext(); //creating a new API context for making API calls
   
     const apiUtils = new ApiUtils(apiContext,loginPayload);
     token = await apiUtils.getToken();

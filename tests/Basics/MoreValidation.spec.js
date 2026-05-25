@@ -1,6 +1,6 @@
 import {test,expect} from '@playwright/test';
 
-test("login",async({page})=>{
+test("popup ",async({page})=>{
 
     await page.goto("https://rahulshettyacademy.com/AutomationPractice/");
     // await page.goto("https://google.com");
@@ -25,5 +25,14 @@ test("login",async({page})=>{
     await page.getByRole("option", { name: "India" }).click();
     await page.locator("#dropdown-class-example").selectOption("option2");
 
-
 });
+
+test.only("Screenshot",async({page})=>{
+    
+    await page.goto("https://rahulshettyacademy.com/AutomationPractice/");
+      await expect(page.locator("#displayed-text")).toBeVisible();
+      await page.locator('#displayed-text').screenshot({path:"displayed-text.png"}); //ss of specific element
+    await page.locator("#hide-textbox").click();
+    await page.screenshot({path:"screenshot.png"});  // ss of entire page
+    await expect(page.locator("#displayed-text")).toBeHidden();
+})

@@ -1,4 +1,4 @@
-import {test,expect} from "@playwright.test";
+import {test,expect} from "@playwright/test"
 
 const BASE_URL = "https://eventhub.rahulshettyacademy.com";
 const API_URL = `${BASE_URL}/api`;
@@ -15,7 +15,6 @@ async function loginAs(page, user) {
 
 
 test('gmail user sees Access Denied when viewing yahoo user booking', async ({ page, request }) => {
-
  
   const loginRes = await request.post(`${API_URL}/auth/login`, {
     data: { email: YAHOO_USER.email, password: YAHOO_USER.password },
@@ -47,11 +46,9 @@ const token = loginResJson.token;
 
   console.log(`Yahoo booking created via API. ID: ${yahooBookingId}`);
 
-
   await loginAs(page, GMAIL_USER);
 
   await page.goto(`${BASE_URL}/bookings/${yahooBookingId}`, { waitUntil: 'networkidle' });
-
 
   await expect(page.getByText('Access Denied')).toBeVisible();
   await expect(page.getByText('You are not authorized to view this booking')).toBeVisible();
