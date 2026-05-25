@@ -25,5 +25,26 @@ async function readExcel(worksheet, searchText) {
     });
   });
 }
-writeExcelTest("Pineapple", "E:/Downloads/excelDownload.xlsx", "Mango");
 
+
+//update Mango to 350
+
+test("Upload download excel validation",async({page})=>{
+  
+    await page.goto("https://rahulshettyacademy.com/upload-download-test/index.html");
+   const downloadPromise =  page.waitForEvent('download'); // it waits for the download to complete
+    await page.getByRole("button",{name:"Download"}).click();
+
+    const download = await downloadPromise;
+    await download.saveAs("E:/Downloads/download.xlsx"); // save the downloaded file
+    await writeExcelTest("Mango", "E:/Downloads/download.xlsx", "Pineapple");
+    await page.locator("#fileinput").click();
+    await page.locator("#fileinput").setInputFiles("E:/Downloads/download.xlsx"); // it will upload the file to the website
+    const textLocator = page.getByText("Pineapple");
+     const desiredRow = await page.getByRole('row').filter({has: textLocator});
+     const cellContent = await desiredRow.locator("#cell-4-undefined").textContent();
+     console.log(cellContent);
+    
+
+    
+})
