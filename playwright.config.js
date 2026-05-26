@@ -25,7 +25,10 @@ export default defineConfig({
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on',
     headless:false,//npx playwright test --headed garnu parddaina
-    screenshot: 'on', 
+    screenshot: 'only-on-failure', 
+    viewport: {width:720,height:720}, //mobile size ma test garna ko lagi
+    ignoreHttpsErrors:true, //https error aako website ma test garna ko lagi
+    permissions:["geolocation"], //geolocation permission dina ko lagi
   },
 
   /* Configure projects for major browsers */
@@ -43,7 +46,7 @@ export default defineConfig({
 
     // {
     //   name: 'webkit',
-    //   use: { ...devices['Desktop Safari'] },
+    //   use: { ...devices['Desktop Safari'] },  //...devices['iphone 11] for mobile testing
     // },
 
     
