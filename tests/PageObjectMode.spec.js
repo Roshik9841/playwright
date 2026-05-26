@@ -1,51 +1,42 @@
-import { test, expect } from "@playwright/test";
-import POManager from "../page-objects/POManager";
+ const {test, expect} = require('@playwright/test');
+ const {POManager} = require('../pageobjects/POManager');
+import placeorder from "../utils/placeorder.json";
 
-test("page object mode", async ({ page }) => {
-  const userName = "roshik9841@gmail.com";
-  const password = "Roshik9841@!";
-  const card= "4100 2100 3465 7898";
-  const code = "Code";
-  const name = "Roshik";
-  const coupon = "rahul shetty academy";
+ test('Client App login', async ({page})=>
+ {
+  const data = JSON.parse(JSON.stringify(placeorder));
+   const poManager = new POManager(page);
+    //js file- Login js, DashboardPage
+     const username = data.username;
+     const password = data.password;
+     const productName = data.productName;
 
-  const poManager = new POManager(page,expect);
-  const loginPage = poManager.getLoginPage();
+     const loginPage = poManager.getLoginPage();
+     await loginPage.goTo();
+     await loginPage.validLogin(username,password);
+     const dashboardPage = poManager.getDashboardPage();
+     await dashboardPage.searchProductAddCart(productName);
+     await dashboardPage.navigateToCart();
 
-  await loginPage.goTo();
-  await loginPage.validLogin(userName, password);
+    const cartPage = poManager.getCartPage();
+    await cartPage.VerifyProductIsDisplayed(productName);
+    await cartPage.Checkout();
 
-  const dashboard =  poManager.getDashboard();
+    const ordersReviewPage = poManager.getOrdersReviewPage();
+    await ordersReviewPage.searchCountryAndSelect("ind","India");
+    const orderId = await ordersReviewPage.SubmitAndGetOrderId();
+   console.log(orderId);
+   await dashboardPage.navigateToOrders();
+   const ordersHistoryPage = poManager.getOrdersHistoryPage();
+   await ordersHistoryPage.searchOrderAndSelect(orderId);
+   expect(orderId.includes(await ordersHistoryPage.getOrderId())).toBeTruthy();
 
-  await dashboard.searchProduct("ZARA COAT 3");
-  await dashboard.navigateToCart();
+ });
  
-  const checkout = poManager.getCheckout();
-  await checkout.goToCheckout();
-  await checkout.fillCheckoutDetails(card,code,name,coupon);
+
+ 
 
 
 
-  await expect(page.getByText(" Thankyou for the order. ")).toBeVisible();
-  const orderId = (
-    await page.locator(".em-spacer-1 .ng-star-inserted").textContent()
-  )
-    .replace(/\|/g, "")
-    .trim();
+ 
 
-  console.log(orderId);
-
-  await page
-    .getByRole("listitem")
-    .getByRole("button", { name: "ORDERS" })
-    .click();
-  await page.locator("tbody").waitFor();
-  const rows = await page
-    .locator("tbody tr")
-    .filter({ hasText: orderId.trim() })
-    .getByRole("button", { name: "View" })
-    .click();
-  const orderIdDetails = await page.locator(".col-text").textContent();
-  expect(orderId.includes(orderIdDetails)).toBeTruthy();
-  // await page.pause();
-});
