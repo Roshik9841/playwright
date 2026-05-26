@@ -2,8 +2,7 @@ import { test, expect } from '@playwright/test';
 
 const BASE_URL      = 'https://eventhub.rahulshettyacademy.com';
 
-// ── Credentials ────────────────────────────────────────────────────────────────
-// Change these to match a registered account in your local sandbox
+
 const USER_EMAIL    = 'roshik9841@gmail.com';
 const USER_PASSWORD = 'Roshik9841@!';
 

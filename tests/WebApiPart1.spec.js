@@ -29,7 +29,7 @@ test.beforeAll(async () => {
 
 
 
-test("Api", async ({ page }) => {
+test("@Web Api", async ({ page }) => {
   
 
   await page.addInitScript((value) => {

@@ -88,7 +88,7 @@ test('UI controls',async({page})=>{
 })
 // console.log(await page.locator("#username").inputValue())
 
-test.only('Child windows hadle',async({browser})=>{
+test('Child windows hadle',async({browser})=>{
     
         const context = await browser.newContext();
         const page = await context.newPage();

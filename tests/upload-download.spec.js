@@ -29,7 +29,7 @@ async function readExcel(worksheet, searchText) {
 
 //update Mango to 350
 
-test("Upload download excel validation",async({page})=>{
+test("@Web Upload download excel validation",async({page})=>{
   
     await page.goto("https://rahulshettyacademy.com/upload-download-test/index.html");
    const downloadPromise =  page.waitForEvent('download'); // it waits for the download to complete

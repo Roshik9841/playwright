@@ -1,5 +1,6 @@
 import {test,expect} from '@playwright/test';
 
+test.describe.configure({mode:'parallel'}); // to run the tests in parallel, by default it runs in serial mode
 test("popup ",async({page})=>{
 
     await page.goto("https://rahulshettyacademy.com/AutomationPractice/");
@@ -38,7 +39,7 @@ test("Screenshot",async({page})=>{
 })
 
 
-test.only('visual', async({page})=>{
+test('visual', async({page})=>{
     await page.goto("https://www.flightaware.com/");
 
     expect(await page.screenshot()).toMatchSnapshot('landing.png');
