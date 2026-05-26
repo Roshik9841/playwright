@@ -1,10 +1,14 @@
  const {test, expect} = require('@playwright/test');
  const {POManager} = require('../pageobjects/POManager');
 import placeorder from "../utils/placeorder.json";
+  const dataset = JSON.parse(JSON.stringify(placeorder));
 
- test('Client App login', async ({page})=>
- {
-  const data = JSON.parse(JSON.stringify(placeorder));
+  for(const data of dataset){
+
+
+    test(`Client App Login ${data.productName}`, async ({page})=>
+      {
+
    const poManager = new POManager(page);
     //js file- Login js, DashboardPage
      const username = data.username;
@@ -33,7 +37,8 @@ import placeorder from "../utils/placeorder.json";
 
  });
  
-
+}
+ 
  
 
 
