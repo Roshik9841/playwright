@@ -13,6 +13,7 @@ class LoginPage {
     await this.userName.fill(username);
     await this.password.fill(password);
     await this.signInButton.click();
+     await this.page.waitForLoadState("networkidle");
   }
 }
 export default LoginPage;

@@ -1,43 +1,30 @@
-import {test,expect} from "@playwright/test";
-import LoginPage from "../page-objects/LoginPage";
+import { test, expect } from "@playwright/test";
+import POManager from "../page-objects/POManager";
 
-test("page object mode",async({page})=>{
+test("page object mode", async ({ page }) => {
+  const userName = "roshik9841@gmail.com";
+  const password = "Roshik9841@!";
+  const card= "4100 2100 3465 7898";
+  const code = "Code";
+  const name = "Roshik";
+  const coupon = "rahul shetty academy";
 
-    const userName = "roshik9841@gmail.com";
-    const password = "Roshik9841@!";
+  const poManager = new POManager(page,expect);
+  const loginPage = poManager.getLoginPage();
 
-    const loginPage = new LoginPage(page);
+  await loginPage.goTo();
+  await loginPage.validLogin(userName, password);
 
-    await loginPage.goTo();
-    await loginPage.validLogin(userName, password);
+  const dashboard =  poManager.getDashboard();
 
-  
+  await dashboard.searchProduct("ZARA COAT 3");
+  await dashboard.navigateToCart();
+ 
+  const checkout = poManager.getCheckout();
+  await checkout.goToCheckout();
+  await checkout.fillCheckoutDetails(card,code,name,coupon);
 
-  await page.waitForLoadState("networkidle");
-  await page.locator(".card-body b").first().waitFor();
 
-  await page
-    .locator(".card-body")
-    .filter({ hasText: "ZARA COAT 3" })
-    .getByRole("button", { name: " Add To Cart" })
-    .click();
-
-  await page
-    .getByRole("listitem")
-    .getByRole("button", { name: "Cart" })
-    .click();
-
-  await page.locator("div li").first().waitFor();
-
-  await expect(page.getByText("ZARA COAT 3")).toBeVisible();
-
-  await page.getByRole("button", { name: "Checkout" }).click();
-
-  await page.getByPlaceholder("Select Country").pressSequentially("ind");
-
-  await page.getByRole("button", { name: "India" }).nth(1).click();
-
-  await page.getByText("Place Order ").click();
 
   await expect(page.getByText(" Thankyou for the order. ")).toBeVisible();
   const orderId = (
@@ -45,7 +32,6 @@ test("page object mode",async({page})=>{
   )
     .replace(/\|/g, "")
     .trim();
-
 
   console.log(orderId);
 
@@ -62,4 +48,4 @@ test("page object mode",async({page})=>{
   const orderIdDetails = await page.locator(".col-text").textContent();
   expect(orderId.includes(orderIdDetails)).toBeTruthy();
   // await page.pause();
-})
+});

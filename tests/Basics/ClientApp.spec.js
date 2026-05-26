@@ -49,12 +49,6 @@ test("Login", async ({ page }) => {
 
  await page.locator("text = Checkout").click();
 
- 
-
-
-
-
-
  const input = page.locator("[type='text']");
  
  await input.first().fill("4100 2100 3465 7898");
