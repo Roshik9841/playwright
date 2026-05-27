@@ -1,7 +1,7 @@
 const { test, expect } = require("@playwright/test");
-const { POManager } = require("../pageobjects/POManager");
-import placeorder from "../utils/placeorder.json";
-import { customTest } from "../utils/test-base";
+const { POManager } = require("../../pageobjects/POManager");
+import placeorder from "../../utils/placeorder.json";
+import { customTest } from "../../utils/test-base";
 
 const dataset = JSON.parse(JSON.stringify(placeorder));
 
