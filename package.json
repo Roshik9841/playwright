@@ -4,17 +4,23 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-
+    "test": "playwright test",
+    "test:web": "playwright test --grep @Web",
+    "test:web:allure": "playwright test --grep @Web --reporter=line,allure-playwright && npx allure generate ./allure-results --clean",
+    "allure:report": "npx allure generate ./allure-results --clean",
+    "allure:open": "npx allure open ./allure-report"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "devDependencies": {
-    "@playwright/test": "^1.59.1",
-    "@types/node": "^25.6.2"
+    "@playwright/test": "^1.60.0",
+    "@types/node": "^25.6.2",
+    "allure-commandline": "^2.32.0",
+    "allure-playwright": "^3.9.0"
   },
   "dependencies": {
-     "exceljs": "^4.4.0"
+    "exceljs": "^3.4.0"
   }
 }
