@@ -29,8 +29,11 @@ export default defineConfig({
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on',
-    headless:false,//npx playwright test --headed garnu parddaina
+    headless:false, //npx playwright test --headed garnu parddaina
     screenshot: 'only-on-failure', 
+     launchOptions: { headless: false, slowMo: 50 }, 
+     //slowMo le test execution slow garxa, 50ms ko delay dinxa
+
     viewport: {width:720,height:720}, //mobile size ma test garna ko lagi
     ignoreHttpsErrors:true, //https error aako website ma test garna ko lagi
     permissions:["geolocation"], //geolocation permission dina ko lagi
