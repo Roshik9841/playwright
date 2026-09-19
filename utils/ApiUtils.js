@@ -1,3 +1,5 @@
+import { isContext } from "node:vm";
+
 let token;
 let orderId;
 
@@ -39,3 +41,35 @@ class ApiUtils {
   }
 }
 export default ApiUtils;
+
+
+// without newContext
+// await request.get(url, {
+//   headers: {
+//     Authorization: 'Bearer token'
+//   }
+// });
+
+// await request.post(url, {
+//   headers: {
+//     Authorization: 'Bearer token'
+//   }
+// });
+
+// await request.delete(url, {
+//   headers: {
+//     Authorization: 'Bearer token'
+//   }
+// });
+
+
+// with newContext
+// const api = await request.newContext({
+//   extraHTTPHeaders: {
+//     Authorization: 'Bearer token'
+//   }
+// });
+
+// await api.get(url);
+// await api.post(url);
+// await api.delete(url);
