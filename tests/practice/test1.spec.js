@@ -1,5 +1,5 @@
-import { test, expect } from "@playwright/test";
-const { Register } = require("../../../pageobjects/Register");
+import { test, expect, request } from "@playwright/test";
+import { Register } from "../../pageobjects/Register";
 
 test("webpage", async ({ page }) => {
   await page.goto("http://automationexercise.com");
@@ -31,4 +31,35 @@ test("webpage", async ({ page }) => {
   await register.deleteAccount();
   await expect(page.locator("h2").first()).toBeVisible();
   await register.continue();
+});
+
+test("api testng", async ({ page }) => {
+  const response = await page.request.get(
+    "https://jsonplaceholder.typicode.com/posts/1",
+  );
+  expect(response.status()).toBe(200);
+  const data = await response.json();
+  console.log(data);
+});
+
+test("api testng2", async () => {
+  const apiContext = await request.newContext();
+
+  const response = await apiContext.post(
+    "https://jsonplaceholder.typicode.com/posts",
+    {
+      data: {
+        title: "Roshik",
+        body: "Learning API testing",
+        userId: 1,
+      },
+    },
+  );
+
+  expect(response.status()).toBe(201);
+
+  const body = await response.json();
+  console.log(body);
+
+  await apiContext.dispose();
 });

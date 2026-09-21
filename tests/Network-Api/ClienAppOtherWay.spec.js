@@ -21,6 +21,7 @@ test("Webst Client App login", async ({ page }) => {
     .getByRole("button", { name: " Add To Cart" })
     .click();
 
+  
   await page
     .getByRole("listitem")
     .getByRole("button", { name: "Cart" })
@@ -44,7 +45,6 @@ test("Webst Client App login", async ({ page }) => {
   )
     .replace(/\|/g, "")
     .trim();
-
 
   console.log(orderId);
 
